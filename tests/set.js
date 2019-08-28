@@ -93,6 +93,29 @@ QUnit.module('Тестируем функцию set', function () {
 			}
 		};
 
+		const object2 = {
+			deep: {
+				nested: {
+					field: null,
+					field2: 42
+				}
+			}
+		}
+
 		assert.deepEqual(set({}, '.deep.nested.field', null), object);
+		assert.deepEqual(set(object, '.deep.nested.field2', 42), object2);
+	});
+
+	QUnit.test('set работает корректно при пустых запросах', function (assert) {
+		const object = {
+			deep: {
+				nested: {
+					field: 42
+				}
+			}
+		};
+
+		assert.deepEqual(set(object, '', 42), object);
+		assert.deepEqual(set(object, '.deep'), object);
 	});
 });
